@@ -1,0 +1,30 @@
+<catalogo>
+    <componente>
+        <id>123</id>
+        <nombre>Ryzen 5500U</nombre>
+        <tipo>Procesador</tipo>
+        <marca>AMD</marca>
+        <precio>3000</precio>
+    </componente>
+    <componente>
+        <id>123</id>
+        <nombre>Ryzen 5500U</nombre>
+        <tipo>Procesador</tipo>
+        <marca>AMD</marca>
+        <precio>3000</precio>
+    </componente>
+    <componente>
+        <id>123</id>
+        <nombre>Ryzen 5500U</nombre>
+        <tipo>Procesador</tipo>
+        <marca>AMD</marca>
+        <precio>3000</precio>
+    </componente>
+    <componente>
+        <id>123</id>
+        <nombre>Ryzen 5500U</nombre>
+        <tipo>Procesador</tipo>
+        <marca>AMD</marca>
+        <precio>3000</precio>
+    </componente>
+</catalogo>

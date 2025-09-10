@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class CatalogoComponent implements OnInit {
   productos: Producto[] = [];
   constructor(private productoService: ProductoService) {}
-  ngOnInit(): void {
-    this.productos = this.productoService.getProductos();
+  async ngOnInit() {
+    this.productos = await this.productoService.getProductos();
   }
 }

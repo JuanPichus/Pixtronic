@@ -1,4 +1,6 @@
-<div *ngFor="let producto of productos">
-  <h3>{{ producto.nombre }}</h3>
-  <p>${{ producto.precio }}</p>
-</div>
+@for(producto of productos; track $index) {
+<h1>{{ producto.nombre }}</h1>
+<h3>{{ producto.tipo }}</h3>
+<h3>{{ producto.marca }}</h3>
+<h2>{{ producto.precio }}</h2>
+}
