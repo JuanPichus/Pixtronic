@@ -1,0 +1,34 @@
+<!-- id, nombre, marca, categoria, precio, imagen(direccion) -->
+
+<catalogo>
+    <producto>
+        <id>1</id>
+        <nombre>RAM DDR4 8GB 2666MHz</nombre>
+        <marca>Corsair</marca>
+        <precio>500</precio>
+    </producto>
+    <producto>
+        <id>2</id>
+        <nombre>Core i7 11th 1360K</nombre>
+        <marca>Intel</marca>
+        <precio>6000</precio>
+    </producto>
+    <producto>
+        <id>3</id>
+        <nombre>RAM DDR5 16GB 3200MHz</nombre>
+        <marca>Samsung</marca>
+        <precio>800</precio>
+    </producto>
+    <producto>
+        <id>4</id>
+        <nombre>Ryzen 3</nombre>
+        <marca>AMD</marca>
+        <precio>4000</precio>
+    </producto>
+    <producto>
+        <id>5</id>
+        <nombre>RAM DDR3 4GB 1800MHz</nombre>
+        <marca>ADATA</marca>
+        <precio>400</precio>
+    </producto>
+</catalogo>

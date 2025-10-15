@@ -1,0 +1,22 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+}
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    background: linear-gradient(135deg, #23272f 0%, #181a1b 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul, ol, li, div {
+    margin: 0;
+    padding: 0;
+}

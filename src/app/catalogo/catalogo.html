@@ -1,0 +1,20 @@
+<h1 class="titulo-principal">Pixtronic</h1>
+<div class="productos-grid">
+    <div *ngFor="let producto of productos; trackBy: trackById" class="producto-card">
+        <div class="producto-header">
+            <h3 class="producto-titulo">{{ producto.nombre }}</h3>
+            <span class="producto-id">ID: {{ producto.id }}</span>
+        </div>
+        <div class="producto-body">
+            <div *ngIf="producto.marca" class="producto-descripcion">
+                {{ producto.marca }}
+            </div>
+            <div class="producto-precio">
+                ${{ producto.precio}}
+            </div>
+        </div>
+        <div class="producto-actions">
+            <button class="btn-agregar" (click)="agregar(producto)" title="Agregar al carrito">Agregar al Carrito</button>
+        </div>
+    </div>
+</div>

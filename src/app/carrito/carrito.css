@@ -1,0 +1,115 @@
+.carrito-container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: #181f1b;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+.titulo {
+    text-align: center;
+    color: #b6f7c1;
+    margin-bottom: 24px;
+    font-size: 28px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+.carrito-vacio {
+    text-align: center;
+    padding: 48px;
+    color: #7bbf8b;
+}
+.carrito-vacio p {
+    font-size: 20px;
+    margin: 12px 0;
+}
+.productos-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.producto-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    border: 1px solid #2e4735;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: #232d26;
+    box-shadow: 0 2px 8px rgba(34, 139, 34, 0.08);
+}
+.producto-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.producto-nombre {
+    font-weight: bold;
+    color: #b6f7c1;
+    margin-bottom: 6px;
+    font-size: 17px;
+}
+.producto-precio {
+    color: #4be067;
+    font-size: 19px;
+    font-weight: bold;
+}
+.btn-quitar {
+    background: #2e4735;
+    color: #fff;
+    border: none;
+    padding: 9px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 2px 6px rgba(34, 139, 34, 0.08);
+}
+.btn-quitar:hover {
+    background: #3fa34d;
+}
+.total-section {
+    margin: 24px 0;
+    padding: 18px;
+    background: #233427;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(34, 139, 34, 0.08);
+}
+.total {
+    text-align: center;
+    font-size: 22px;
+    color: #b6f7c1;
+}
+.acciones {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+.btn-vaciar, .btn-exportar {
+    padding: 13px 26px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(34, 139, 34, 0.08);
+}
+.btn-vaciar {
+    background: #3a4d3c;
+    color: #b6f7c1;
+}
+.btn-vaciar:hover {
+    background: #4be067;
+    color: #181f1b;
+}
+.btn-exportar {
+    background: #4be067;
+    color: #181f1b;
+}
+.btn-exportar:hover {
+    background: #2e4735;
+    color: #b6f7c1;
+}

@@ -1,0 +1,26 @@
+<div class="carrito-container">
+    <h2 class="titulo">Carrito de Compras</h2>
+    <div *ngIf="carrito().length === 0" class="carrito-vacio">
+        <p>Tu carrito está vacío.</p>
+    </div>
+    <div *ngIf="carrito().length > 0" class="carrito-contenido">
+        <ul class="productos-lista">
+            <li *ngFor="let producto of carrito(); trackBy: trackById" class="producto-item">
+                <div class="producto-info">
+                    <span class="producto-nombre">{{ producto.nombre }}</span>
+                    <span class="producto-precio">{{ producto.precio | currency:'USD':'symbol':'1.2-2' }}</span>
+                </div>
+                <button class="btn-quitar" (click)="quitar(producto.id)" title="Quitar del carrito">Quitar</button>
+            </li>
+        </ul>
+        <div class="total-section">
+            <div class="total">
+                <strong>Total: {{ total() | currency:'USD':'symbol':'1.2-2' }}</strong>
+            </div>
+        </div>
+        <div class="acciones">
+            <button class="btn-vaciar" (click)="vaciar()" title="Vaciar todo el carrito">Vaciar Carrito</button>
+            <button class="btn-exportar" (click)="exportarXML()" title="Generar recibo XML">Generar Recibo XML</button>
+        </div>
+    </div>
+</div>
