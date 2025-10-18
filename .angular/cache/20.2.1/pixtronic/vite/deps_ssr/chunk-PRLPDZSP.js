@@ -1,17 +1,18 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
+import {
+  withHttpTransferCache
+} from "./chunk-MZZ3ZQAI.js";
 import {
   CommonModule,
   DomAdapter,
   PLATFORM_BROWSER_ID,
   getDOM,
   setRootDomAdapter
-} from "./chunk-U76HJOMI.js";
-import {
-  withHttpTransferCache
-} from "./chunk-PWSTXDME.js";
+} from "./chunk-JGIQ2ED6.js";
 import {
   XhrFactory,
   parseCookieValue
-} from "./chunk-65C3OGBO.js";
+} from "./chunk-43NSXP3D.js";
 import {
   ANIMATIONS_DISABLED,
   APP_ID,
@@ -47,7 +48,6 @@ import {
   ViewEncapsulation,
   XSS_SECURITY_URL,
   ZONELESS_ENABLED,
-  __spreadValues,
   _global,
   _sanitizeHtml,
   _sanitizeUrl,
@@ -77,9 +77,13 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-3J32OQ27.js";
+} from "./chunk-LYGTDO7Q.js";
+import {
+  __spreadProps,
+  __spreadValues
+} from "./chunk-6DU2HRTW.js";
 
-// ../node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
+// node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
 var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
 var EventManager = class _EventManager {
   _zone;
@@ -298,7 +302,7 @@ var SharedStylesHost = class _SharedStylesHost {
     if (this.nonce) {
       element.setAttribute("nonce", this.nonce);
     }
-    if (false) {
+    if (true) {
       element.setAttribute(APP_ID_ATTRIBUTE_NAME, this.appId);
     }
     return host.appendChild(element);
@@ -418,14 +422,14 @@ var DomRendererFactory2 = class _DomRendererFactory2 {
     this.animationDisabled = animationDisabled;
     this.maxAnimationTimeout = maxAnimationTimeout;
     this.tracingService = tracingService;
-    this.platformIsServer = false;
+    this.platformIsServer = true;
     this.defaultRenderer = new DefaultDomRenderer2(eventManager, doc, ngZone, this.platformIsServer, this.tracingService, this.registry = getAnimationElementRemovalRegistry(), this.maxAnimationTimeout);
   }
   createRenderer(element, type) {
     if (!element || !type) {
       return this.defaultRenderer;
     }
-    if (false) {
+    if (type.encapsulation === ViewEncapsulation.ShadowDom) {
       type = __spreadProps(__spreadValues({}, type), {
         encapsulation: ViewEncapsulation.Emulated
       });
@@ -690,7 +694,7 @@ var DefaultDomRenderer2 = class {
       if (event === "__ngUnwrap__") {
         return eventHandler;
       }
-      const allowDefaultBehavior = false ? this.ngZone.runGuarded(() => eventHandler(event)) : eventHandler(event);
+      const allowDefaultBehavior = true ? this.ngZone.runGuarded(() => eventHandler(event)) : eventHandler(event);
       if (allowDefaultBehavior === false) {
         event.preventDefault();
       }
@@ -791,7 +795,7 @@ var NoneEncapsulationDomRenderer = class extends DefaultDomRenderer2 {
     if (!this.removeStylesOnCompDestroy) {
       return;
     }
-    if (!this._animationDisabled && this.registry.elements) {
+    if (false) {
       this.ngZone.runOutsideAngular(() => {
         setTimeout(() => {
           this.sharedStylesHost.removeStyles(this.styles, this.styleUrls);
@@ -822,7 +826,7 @@ var EmulatedEncapsulationDomRenderer2 = class extends NoneEncapsulationDomRender
   }
 };
 
-// ../node_modules/@angular/platform-browser/fesm2022/browser.mjs
+// node_modules/@angular/platform-browser/fesm2022/browser.mjs
 var BrowserDomAdapter = class _BrowserDomAdapter extends DomAdapter {
   supportsDOMEvents = true;
   static makeCurrent() {
@@ -1271,7 +1275,7 @@ var BrowserModule = class _BrowserModule {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
+// node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var Meta = class _Meta {
   _doc;
   _dom;
@@ -2072,4 +2076,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-FDFVYNI6.js.map
+//# sourceMappingURL=chunk-PRLPDZSP.js.map

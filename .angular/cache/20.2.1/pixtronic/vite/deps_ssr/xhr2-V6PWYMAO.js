@@ -4,9 +4,9 @@ import {
   __require
 } from "./chunk-6DU2HRTW.js";
 
-// ../node_modules/xhr2/lib/xhr2.js
+// node_modules/xhr2/lib/xhr2.js
 var require_xhr2 = __commonJS({
-  "../node_modules/xhr2/lib/xhr2.js"(exports, module) {
+  "node_modules/xhr2/lib/xhr2.js"(exports, module) {
     (function() {
       var InvalidStateError, NetworkError, ProgressEvent, SecurityError, SyntaxError, XMLHttpRequest, XMLHttpRequestEventTarget, XMLHttpRequestUpload, http, https, os, url;
       XMLHttpRequestEventTarget = (function() {
@@ -956,4 +956,4 @@ var require_xhr2 = __commonJS({
   }
 });
 export default require_xhr2();
-//# sourceMappingURL=xhr2-4VDN2AEZ.js.map
+//# sourceMappingURL=xhr2-V6PWYMAO.js.map
