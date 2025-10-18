@@ -54,3 +54,19 @@
   background: #6c757d;
   cursor: not-allowed;
 }
+
+.registro-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.registro-link a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.registro-link a:hover {
+  text-decoration: underline;
+}
