@@ -13,5 +13,5 @@ export const routes: Routes = [
     {path: 'catalogo', component: Catalogo},
     
     {path: 'carrito', component: CarritoComponent},
-    { path: '**', redirectTo: '/login' } // Si no existe la ruta solicitada de manda al login
+    //{ path: '**', redirectTo: '/login' } // Si no existe la ruta solicitada de manda al login
 ];

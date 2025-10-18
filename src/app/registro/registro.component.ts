@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../servicios/auth.service';
 
 @Component({
   selector: 'app-registro',
@@ -24,7 +24,8 @@ export class RegistroComponent {
   errorMessage = '';
   successMessage = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   onSubmit() {
     this.isLoading = true;
@@ -40,23 +41,22 @@ export class RegistroComponent {
       return;
     }
 
-    // Llamar a la API para registrar el usuario
-    this.http.post('http://localhost:3000/api/register', this.userData)
-      .subscribe({
-        next: (response: any) => {
-          this.isLoading = false;
-          this.successMessage = 'Registro exitoso! Redirigiendo al login...';
-          
-          // Redirigir al login después de 2 segundos
-          setTimeout(() => {
-            this.router.navigate(['/login']);
-          }, 2000);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.errorMessage = error.error?.message || 'Error en el registro';
-          console.error('Error en registro:', error);
-        }
-      });
+    // Usar el servicio de autenticación (igual que en productos)
+    this.authService.registrarUsuario(this.userData).subscribe({
+      next: (data) => {
+        this.isLoading = false;
+        this.successMessage = 'Registro exitoso! Redirigiendo al login...';
+        
+        // Redirigir al login después de 2 segundos
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.error?.error || error.error?.message || 'Error en el registro';
+        console.error('Error en registro:', error);
+      }
+    });
   }
 }

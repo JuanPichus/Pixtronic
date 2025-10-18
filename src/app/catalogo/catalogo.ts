@@ -1,3 +1,4 @@
+//app/catalogo/catalogo.ts
 import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { Producto } from '../modelos/producto';
 import { Productos } from '../servicios/productos';
