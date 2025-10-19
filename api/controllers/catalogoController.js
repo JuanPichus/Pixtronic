@@ -1,3 +1,4 @@
+//api/controllers/catalogoController.js
 import db from '../config/db.js';
 
 //Obtener los productos
