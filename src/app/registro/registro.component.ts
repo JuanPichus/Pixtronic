@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../servicios/auth.service';
+import { ServicioAutenticacion } from '../servicios/auth.service';
 
 @Component({
   selector: 'app-registro',
@@ -24,39 +24,50 @@ export class RegistroComponent {
   errorMessage = '';
   successMessage = '';
 
-  private authService = inject(AuthService);
+  private authService = inject(ServicioAutenticacion);
   private router = inject(Router);
 
-  onSubmit() {
+  // Cambiar a async para manejar la Promise
+  async onSubmit() {
     this.isLoading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Validar campos llenos
-    if (!this.userData.username || !this.userData.lastname || 
-        !this.userData.email || !this.userData.password || 
-        !this.userData.birth_date) {
-      this.errorMessage = 'Todos los campos son obligatorios';
-      this.isLoading = false;
-      return;
-    }
-
-    // Usar el servicio de autenticacion
-    this.authService.registrarUsuario(this.userData).subscribe({
-      next: (data) => {
+    try {
+      // Validar campos llenos
+      if (!this.userData.username || !this.userData.lastname || 
+          !this.userData.email || !this.userData.password || 
+          !this.userData.birth_date) {
+        this.errorMessage = 'Todos los campos son obligatorios';
         this.isLoading = false;
-        this.successMessage = 'Registro exitoso! Redirigiendo al login...';
-        
-        // te redirige al login despues de 2 segundos
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.error || error.error?.message || 'Error en el registro';
-        console.error('Error en registro:', error);
+        return;
       }
-    });
+
+      // USAR AWAIT para obtener el Observable desde la Promise
+      const observable = await this.authService.registrarUsuario(this.userData);
+      
+      // Ahora sí podemos usar subscribe en el Observable
+      observable.subscribe({
+        next: (response: any) => {
+          this.isLoading = false;
+          this.successMessage = 'Registro exitoso! Redirigiendo al login...';
+          
+          // Redirigir al login después de 2 segundos
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
+        },
+        error: (error: any) => {
+          this.isLoading = false;
+          this.errorMessage = error.error?.error || error.error?.message || 'Error en el registro';
+          console.error('Error en registro:', error);
+        }
+      });
+
+    } catch (error: any) {
+      this.isLoading = false;
+      this.errorMessage = error.message || 'Error en el proceso de registro';
+      console.error('Error capturado:', error);
+    }
   }
 }

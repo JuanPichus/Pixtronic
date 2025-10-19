@@ -1,11 +1,55 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioCriptografia {
   
   constructor() { }
+
+  // Agrega este método a la clase ServicioCriptografia
+async derivarClaveDesdePassword(password: string): Promise<string> {
+  try {
+    // Convertir la contraseña a ArrayBuffer
+    const passwordBuffer = new TextEncoder().encode(password);
+    
+    // Importar la contraseña como material clave
+    const keyMaterial = await window.crypto.subtle.importKey(
+      'raw',
+      passwordBuffer,
+      { name: 'PBKDF2' },
+      false,
+      ['deriveKey', 'deriveBits']
+    );
+
+    // Crear salt directamente como ArrayBuffer
+    const saltText = 'salt-fijo-para-derivacion';
+    const saltBuffer = new TextEncoder().encode(saltText);
+
+    // Derivar una clave AES usando PBKDF2 - HACERLA EXTRACTABLE
+    const derivedKey = await window.crypto.subtle.deriveKey(
+      {
+        name: 'PBKDF2',
+        salt: saltBuffer,
+        iterations: 100000,
+        hash: 'SHA-256'
+      },
+      keyMaterial,
+      { name: 'AES-GCM', length: 256 },
+      true, // ← CAMBIO IMPORTANTE: hacer la clave exportable
+      ['encrypt', 'decrypt']
+    );
+
+    // Exportar la clave derivada
+    const exportedKey = await window.crypto.subtle.exportKey('raw', derivedKey);
+    return this.arregloBytesABase64(exportedKey);
+
+  } catch (error) {
+    console.error('Error derivando clave:', error);
+    throw new Error('No se pudo derivar la clave desde la contraseña');
+  }
+}
 
   // Generar par de llaves RSA 4096 bits
   async generarParLlavesRSA(): Promise<{ llavePublica: string; llavePrivada: string }> {

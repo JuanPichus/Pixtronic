@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../servicios/auth.service';
+import { ServicioAutenticacion } from '../servicios/auth.service'; // Cambiar import
 
 @Component({
   selector: 'app-login',
@@ -20,30 +20,41 @@ export class LoginComponent {
   isLoading = false;
   errorMessage = '';
 
-  private authService = inject(AuthService);
+  private authService = inject(ServicioAutenticacion); // Usar nombre correcto
   private router = inject(Router);
 
-  onSubmit() {
+  // Cambiar a async para manejar la Promise
+  async onSubmit() {
     this.isLoading = true;
     this.errorMessage = '';
 
-    // Usar el servicio de autenticación
-    this.authService.loginUsuario(this.credentials).subscribe({
-      next: (data) => {
-        this.isLoading = false;
-        console.log('Login exitoso:', data);
-        
-        // Guardar usuario en localStorage o servicio de autenticación
-        localStorage.setItem('currentUser', JSON.stringify(data.user));
-        
-        // Navegar al catálogo
-        this.router.navigate(['/catalogo']);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.error || 'Error en el login';
-        console.error('Error en login:', error);
-      }
-    });
+    try {
+      // USAR AWAIT para obtener el Observable desde la Promise
+      const observable = await this.authService.iniciarSesion(this.credentials);
+      
+      // Ahora sí podemos usar subscribe en el Observable
+      observable.subscribe({
+        next: (response: any) => {
+          this.isLoading = false;
+          console.log('Login exitoso:', response);
+          
+          // Guardar usuario en localStorage
+          localStorage.setItem('currentUser', JSON.stringify(response.user));
+          
+          // Navegar al catálogo
+          this.router.navigate(['/catalogo']);
+        },
+        error: (error: any) => {
+          this.isLoading = false;
+          this.errorMessage = error.error?.error || 'Error en el login';
+          console.error('Error en login:', error);
+        }
+      });
+
+    } catch (error: any) {
+      this.isLoading = false;
+      this.errorMessage = error.message || 'Error en el proceso de login';
+      console.error('Error capturado:', error);
+    }
   }
 }
