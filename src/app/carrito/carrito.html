@@ -21,6 +21,8 @@
         <div class="acciones">
             <button class="btn-vaciar" (click)="vaciar()" title="Vaciar todo el carrito">Vaciar Carrito</button>
             <button class="btn-exportar" (click)="exportarXML()" title="Generar recibo XML">Generar Recibo XML</button>
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+            
         </div>
     </div>
 </div>
