@@ -1,7 +1,7 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import "./chunk-6DU2HRTW.js";
 
-// ../node_modules/@angular/platform-server/fesm2022/init.mjs
+// node_modules/@angular/platform-server/fesm2022/init.mjs
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
 }

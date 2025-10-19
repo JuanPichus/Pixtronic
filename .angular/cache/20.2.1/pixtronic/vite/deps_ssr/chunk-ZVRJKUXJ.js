@@ -4,16 +4,16 @@ import {
   ROUTES,
   Router,
   loadChildren
-} from "./chunk-S442CZW3.js";
+} from "./chunk-ZIQCR7TG.js";
 import {
   BrowserDomAdapter,
   BrowserModule,
   EVENT_MANAGER_PLUGINS,
   EventManagerPlugin
-} from "./chunk-I7HMDM7B.js";
+} from "./chunk-PRLPDZSP.js";
 import {
   HTTP_ROOT_INTERCEPTOR_FNS
-} from "./chunk-F4Z3U6SI.js";
+} from "./chunk-MZZ3ZQAI.js";
 import {
   APP_BASE_HREF,
   NullViewportScroller,
@@ -22,10 +22,10 @@ import {
   ViewportScroller,
   getDOM,
   setRootDomAdapter
-} from "./chunk-NG25FA2S.js";
+} from "./chunk-JGIQ2ED6.js";
 import {
   XhrFactory
-} from "./chunk-BKBFQUFC.js";
+} from "./chunk-43NSXP3D.js";
 import {
   ALLOW_MULTIPLE_PLATFORMS,
   APP_ID,
@@ -73,7 +73,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-DOVM2WYA.js";
+} from "./chunk-LYGTDO7Q.js";
 import {
   __objRest,
   __spreadProps,
@@ -81,7 +81,7 @@ import {
   __toESM
 } from "./chunk-6DU2HRTW.js";
 
-// ../node_modules/@angular/platform-server/fesm2022/server.mjs
+// node_modules/@angular/platform-server/fesm2022/server.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
 function getDefaultExportFromCjs(x) {
   return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
@@ -17413,7 +17413,7 @@ var ServerXhr = class _ServerXhr {
     if (!this.xhrImpl) {
       const {
         default: xhr
-      } = await import("./xhr2-4VDN2AEZ.js");
+      } = await import("./xhr2-V6PWYMAO.js");
       this.xhrImpl = xhr;
     }
   }
@@ -17793,7 +17793,7 @@ function platformServer(extraProviders) {
   return platform;
 }
 
-// ../node_modules/@angular/platform-server/fesm2022/platform-server.mjs
+// node_modules/@angular/platform-server/fesm2022/platform-server.mjs
 var import_rxjs2 = __toESM(require_cjs(), 1);
 function provideServerRendering() {
   if (false) {
@@ -17946,7 +17946,7 @@ async function renderApplication(bootstrap, options) {
 }
 var VERSION = new Version("20.2.3");
 
-// ../node_modules/@angular/ssr/third_party/beasties/index.js
+// node_modules/@angular/ssr/third_party/beasties/index.js
 function createNotImplementedError(name) {
   throw new Error(`[unenv] ${name} is not implemented yet!`);
 }
@@ -27775,7 +27775,7 @@ function formatSize(size) {
   return `${roundedSize.toFixed(fractionDigits)} ${abbreviations[index2]}`;
 }
 
-// ../node_modules/@angular/ssr/fesm2022/ssr.mjs
+// node_modules/@angular/ssr/fesm2022/ssr.mjs
 var ServerAssets = class {
   manifest;
   /**
@@ -29514,4 +29514,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-LGD4QHSO.js.map
+//# sourceMappingURL=chunk-ZVRJKUXJ.js.map

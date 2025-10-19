@@ -1,6 +1,4 @@
-import { createRequire } from 'module';const require = createRequire(import.meta.url);
-
-// ../node_modules/@angular/common/fesm2022/xhr.mjs
+// node_modules/@angular/common/fesm2022/xhr.mjs
 function parseCookieValue(cookieStr, name) {
   name = encodeURIComponent(name);
   for (const cookie of cookieStr.split(";")) {
@@ -28,4 +26,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-BKBFQUFC.js.map
+//# sourceMappingURL=chunk-EXH6ORNE.js.map

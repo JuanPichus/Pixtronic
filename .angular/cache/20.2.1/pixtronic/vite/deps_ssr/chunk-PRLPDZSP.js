@@ -1,18 +1,18 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   withHttpTransferCache
-} from "./chunk-F4Z3U6SI.js";
+} from "./chunk-MZZ3ZQAI.js";
 import {
   CommonModule,
   DomAdapter,
   PLATFORM_BROWSER_ID,
   getDOM,
   setRootDomAdapter
-} from "./chunk-NG25FA2S.js";
+} from "./chunk-JGIQ2ED6.js";
 import {
   XhrFactory,
   parseCookieValue
-} from "./chunk-BKBFQUFC.js";
+} from "./chunk-43NSXP3D.js";
 import {
   ANIMATIONS_DISABLED,
   APP_ID,
@@ -77,13 +77,13 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-DOVM2WYA.js";
+} from "./chunk-LYGTDO7Q.js";
 import {
   __spreadProps,
   __spreadValues
 } from "./chunk-6DU2HRTW.js";
 
-// ../node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
+// node_modules/@angular/platform-browser/fesm2022/dom_renderer.mjs
 var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
 var EventManager = class _EventManager {
   _zone;
@@ -826,7 +826,7 @@ var EmulatedEncapsulationDomRenderer2 = class extends NoneEncapsulationDomRender
   }
 };
 
-// ../node_modules/@angular/platform-browser/fesm2022/browser.mjs
+// node_modules/@angular/platform-browser/fesm2022/browser.mjs
 var BrowserDomAdapter = class _BrowserDomAdapter extends DomAdapter {
   supportsDOMEvents = true;
   static makeCurrent() {
@@ -1275,7 +1275,7 @@ var BrowserModule = class _BrowserModule {
   }], () => [], null);
 })();
 
-// ../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
+// node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var Meta = class _Meta {
   _doc;
   _dom;
@@ -2076,4 +2076,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-I7HMDM7B.js.map
+//# sourceMappingURL=chunk-PRLPDZSP.js.map
