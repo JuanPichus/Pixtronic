@@ -32,7 +32,7 @@ export class RegistroComponent {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Validar que todos los campos estén llenos
+    // Validar campos llenos
     if (!this.userData.username || !this.userData.lastname || 
         !this.userData.email || !this.userData.password || 
         !this.userData.birth_date) {
@@ -41,13 +41,13 @@ export class RegistroComponent {
       return;
     }
 
-    // Usar el servicio de autenticación (igual que en productos)
+    // Usar el servicio de autenticacion
     this.authService.registrarUsuario(this.userData).subscribe({
       next: (data) => {
         this.isLoading = false;
         this.successMessage = 'Registro exitoso! Redirigiendo al login...';
         
-        // Redirigir al login después de 2 segundos
+        // te redirige al login despues de 2 segundos
         setTimeout(() => {
           this.router.navigate(['/login']);
         }, 2000);
