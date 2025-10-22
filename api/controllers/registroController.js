@@ -11,7 +11,7 @@ export const registrarUsuario = (req, res) => {
 
   // Verificar si el email ya existe
   const checkEmailQuery = 'SELECT * FROM usuario WHERE email = ?';
-  
+
   db.query(checkEmailQuery, [email], (err, results) => {
     if (err) {
       console.error('Error al verificar email:', err);
@@ -34,9 +34,9 @@ export const registrarUsuario = (req, res) => {
         return res.status(500).json({ error: 'Error al registrar usuario' });
       }
 
-      res.status(201).json({ 
+      res.status(201).json({
         message: 'Usuario registrado exitosamente',
-        userId: results.insertId 
+        userId: results.insertId,
       });
     });
   });
@@ -50,8 +50,8 @@ export const loginUsuario = (req, res) => {
     return res.status(400).json({ error: 'Email y contraseña son obligatorios' });
   }
 
-  const query = 'SELECT id, username, email FROM usuario WHERE email = ? AND password = ?';
-  
+  const query = 'SELECT id_user, username, email FROM usuario WHERE email = ? AND password = ?';
+
   db.query(query, [email, password], (err, results) => {
     if (err) {
       console.error('Error en login:', err);
@@ -63,9 +63,9 @@ export const loginUsuario = (req, res) => {
     }
 
     const user = results[0];
-    res.json({ 
+    res.json({
       message: 'Login exitoso',
-      user: user
+      user: user,
     });
   });
 };
