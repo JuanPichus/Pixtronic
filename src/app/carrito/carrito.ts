@@ -3,6 +3,7 @@ import { CarritoService } from '../servicios/carrito.service';
 import { CurrencyPipe, CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { IPayPalConfig, ICreateOrderRequest, NgxPayPalModule, ITransactionItem } from 'ngx-paypal';
+
 @Component({
     selector: 'app-carrito',
     standalone: true,
@@ -13,7 +14,14 @@ import { IPayPalConfig, ICreateOrderRequest, NgxPayPalModule, ITransactionItem }
 export class CarritoComponent implements OnInit {
     private carritoService = inject(CarritoService);
     carrito = this.carritoService.productos;
-    total = computed(() => this.carritoService.total());
+    // subtotal (sum of product prices, no IVA)
+    subTotal = computed(() => this.carritoService.total());
+    // IVA based on subtotal
+    IVA = computed(() => this.subTotal() * 0.16);
+    // total = subtotal + IVA
+    total = computed(() => this.subTotal() * 1.16);
+    generarReciboXML = computed(() => this.carritoService.exportarXML());
+
     quitar(id: number) {
         this.carritoService.quitar(id);
     }
@@ -35,7 +43,13 @@ export class CarritoComponent implements OnInit {
 
     private initConfig(): void {
         const currency = 'MXN';
-        const totalAmount = this.total().toString();
+        const subtotalValue = this.subTotal();
+        const ivaValue = this.IVA();
+        const totalValue = this.total();
+
+        const subtotalStr = subtotalValue.toFixed(2);
+        const ivaStr = ivaValue.toFixed(2);
+        const totalStr = totalValue.toFixed(2);
 
         this.payPalConfig = {
             currency: currency,
@@ -46,24 +60,27 @@ export class CarritoComponent implements OnInit {
                     {
                         amount: {
                             currency_code: currency,
-                            value: totalAmount,
+                            value: totalStr,
                             breakdown: {
                                 item_total: {
                                     currency_code: currency,
-                                    value: totalAmount
+                                    value: subtotalStr
+                                },
+                                tax_total: {
+                                    currency_code: currency,
+                                    value: ivaStr
                                 }
                             }
                         },
-                        items: this.carrito().map(x => <ITransactionItem>
-                            {
-                                name: x.nombre,
-                                quantity: '1',
-                                category: 'PHYSICAL_GOODS',
-                                unit_amount: {
-                                    currency_code: currency,
-                                    value: x.precio.toString(),
-                                },
-                            })
+                        items: this.carrito().map(x => <ITransactionItem>{
+                            name: x.nombre,
+                            quantity: "1",
+                            category: 'PHYSICAL_GOODS',
+                            unit_amount: {
+                                currency_code: currency,
+                                value: Number(x.precio).toFixed(2),
+                            },
+                        })
                     }
                 ]
             },
@@ -81,7 +98,8 @@ export class CarritoComponent implements OnInit {
                 });
             },
             onClientAuthorization: (data) => {
-                console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+                this.generarReciboXML();
+                this.vaciar();
             },
             onCancel: (data, actions) => {
                 console.log('OnCancel', data, actions);

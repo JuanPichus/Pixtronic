@@ -1,5 +1,5 @@
-import {Injectable, signal} from '@angular/core';
-import {Producto} from '../modelos/producto';
+import { Injectable, signal } from '@angular/core';
+import { Producto } from '../modelos/producto';
 
 @Injectable({
     providedIn: 'root'
@@ -39,9 +39,11 @@ export class CarritoService {
             }
             xml += `  </producto>\n`;
         }
-        xml += `  <total>${this.total()}</total>\n`;
+        xml += `  <subtotal>${this.total()}</subtotal>\n`;
+        xml += `  <iva>${this.total() * 0.16}</iva>\n`;
+        xml += `  <total>${(this.total() * 1.16).toFixed(2)}</total>\n`;
         xml += `</recibo>`;
-        const blob = new Blob([xml], {type: 'application/xml'});
+        const blob = new Blob([xml], { type: 'application/xml' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
