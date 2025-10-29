@@ -61,17 +61,8 @@ export const crearPedidoConItems = async (req, res) => {
       porProducto.set(it.id_producto, (porProducto.get(it.id_producto) ?? 0) + it.cant_prod);
     }
 
-    // Importante: dentro de la misma transacción
     for (const [id_producto, cantTotal] of porProducto.entries()) {
-      // Si NO quieres permitir negativos, usa WHERE cantidad >= ? y valida affectedRows
-      // const [resUpd] = await conn.query(
-      //   'UPDATE producto SET cantidad = cantidad - ? WHERE id_producto = ? AND cantidad >= ?',
-      //   [cantTotal, id_producto, cantTotal]
-      // );
-      // if (resUpd.affectedRows === 0) {
-      //   throw new Error(`Stock insuficiente para producto ${id_producto}`);
-      // }
-
+     
       // Permitir no-negativos (clip a cero)
       await conn.query(
         'UPDATE producto SET cantidad = GREATEST(COALESCE(cantidad,0) - ?, 0) WHERE id_producto = ?',

@@ -1,49 +1,49 @@
 {
-  "hash": "30cb05c3",
-  "configHash": "2e48031b",
+  "hash": "ebfb129f",
+  "configHash": "1d3046f1",
   "lockfileHash": "9cc30465",
-  "browserHash": "fdaf831b",
+  "browserHash": "b90e8ffc",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "7df1832a",
+      "fileHash": "1ffba992",
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
-      "fileHash": "babafaf5",
+      "fileHash": "f590f937",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "c385c867",
+      "fileHash": "b3cc3993",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "7c74095c",
+      "fileHash": "f0159f38",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "3a7441c1",
+      "fileHash": "d969911c",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "5b32e4c5",
+      "fileHash": "ca5e5876",
       "needsInterop": false
     },
     "ngx-paypal": {
       "src": "../../../../../../node_modules/ngx-paypal/fesm2020/ngx-paypal.mjs",
       "file": "ngx-paypal.js",
-      "fileHash": "5ce58b16",
+      "fileHash": "82c8bbfa",
       "needsInterop": false
     }
   },
