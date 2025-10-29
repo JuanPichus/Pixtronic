@@ -100,10 +100,10 @@ export class CarritoComponent implements OnInit {
                 });
             },
             onClientAuthorization: (data) => {
-                // Guardamos los datos del carrito
+                // 1) Snapshot del carrito ANTES de vaciar
                 const itemsSnapshot = [...this.carrito()];
 
-                // Obtenemos el id del usuario que esta haciendo el pedido (este se guarda en local al hacer login)
+                // 2) Usuario desde localStorage
                 const userStr = localStorage.getItem('currentUser');
                 if (!userStr) {
                     console.error('Usuario no encontrado en localStorage.');
@@ -118,15 +118,12 @@ export class CarritoComponent implements OnInit {
                     return;
                 }
 
-                // construimos el payload de productos 
+                // 3) Armar payload de productos (id robusto)
                 const productosPayload = itemsSnapshot.map((p: any) => {
-                    const idProd = Number(
-                        p?.id_producto ?? p?.id ?? p?.producto_id ?? p?.idProd
-                    );
+                    const idProd = Number(p?.id_producto ?? p?.id ?? p?.producto_id ?? p?.idProd);
                     return { id_producto: idProd, cant_prod: 1, _debug: p };
                 });
 
-                // una simple validacion de los ids de productos
                 const validos = productosPayload.filter(x => Number.isInteger(x.id_producto) && x.id_producto > 0);
                 if (validos.length !== productosPayload.length) {
                     console.error('Productos con id inválido. Snapshot:', productosPayload);
@@ -134,16 +131,16 @@ export class CarritoComponent implements OnInit {
                     return;
                 }
 
-                // construir el payload final
                 const payload = {
                     fk_user,
                     productos: validos.map(({ id_producto, cant_prod }) => ({ id_producto, cant_prod }))
                 };
 
-                // guardar en la base de datos, si todo sale bien, tambien genera el XMl y vacia el carrito.
+                // 4) Crear pedido + líneas + disminuir stock (misma transacción)
                 this.pedidoService.crearPedidoConItems(payload).subscribe({
                     next: (resp) => {
                         if (resp?.ok) {
+                            // 5) Ahora sí: generar XML y vaciar
                             this.generarReciboXML();
                             this.vaciar();
                         } else {

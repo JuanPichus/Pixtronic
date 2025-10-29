@@ -21,7 +21,6 @@ export interface CrearPedidoResponse {
 @Injectable({ providedIn: 'root' })
 export class PedidoService {
   private http = inject(HttpClient);
-  // Ajusta al puerto de tu API Node
   private baseUrl = 'http://localhost:3000/api/pedidos';
 
   crearPedidoConItems(payload: CrearPedidoPayload): Observable<CrearPedidoResponse> {
