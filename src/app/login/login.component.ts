@@ -13,6 +13,7 @@ import { AuthService } from '../servicios/auth.service';
 })
 export class LoginComponent {
   credentials = {
+    id_user: '',
     email: '',
     password: ''
   };
@@ -34,7 +35,7 @@ export class LoginComponent {
         console.log('Login exitoso:', data);
         
         // Guardar usuario en localStorage o servicio de autenticación
-        localStorage.setItem('currentUser', JSON.stringify(data.user));
+        localStorage.setItem('currentUser', JSON.stringify(data.user)); //AQUI SE GUARDA EL USUARIO LOGUEADO
         
         // Navegar al catálogo
         this.router.navigate(['/catalogo']);

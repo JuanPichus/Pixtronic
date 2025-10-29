@@ -3,6 +3,7 @@ import { CarritoService } from '../servicios/carrito.service';
 import { CurrencyPipe, CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { IPayPalConfig, ICreateOrderRequest, NgxPayPalModule, ITransactionItem } from 'ngx-paypal';
+import { PedidoService } from '../servicios/pedido.service';
 
 @Component({
     selector: 'app-carrito',
@@ -13,6 +14,7 @@ import { IPayPalConfig, ICreateOrderRequest, NgxPayPalModule, ITransactionItem }
 })
 export class CarritoComponent implements OnInit {
     private carritoService = inject(CarritoService);
+    private pedidoService = inject(PedidoService);
     carrito = this.carritoService.productos;
     // subtotal (sum of product prices, no IVA)
     subTotal = computed(() => this.carritoService.total());
@@ -98,8 +100,62 @@ export class CarritoComponent implements OnInit {
                 });
             },
             onClientAuthorization: (data) => {
-                this.generarReciboXML();
-                this.vaciar();
+                // Guardamos los datos del carrito
+                const itemsSnapshot = [...this.carrito()];
+
+                // Obtenemos el id del usuario que esta haciendo el pedido (este se guarda en local al hacer login)
+                const userStr = localStorage.getItem('currentUser');
+                if (!userStr) {
+                    console.error('Usuario no encontrado en localStorage.');
+                    alert('No se pudo registrar el pedido: usuario no identificado.');
+                    return;
+                }
+                const user = JSON.parse(userStr);
+                const fk_user = Number(user?.id_user ?? user?.fk_user ?? user?.id);
+                if (!Number.isInteger(fk_user) || fk_user <= 0) {
+                    console.error('id_user inválido en currentUser:', user);
+                    alert('No se pudo registrar el pedido: usuario inválido.');
+                    return;
+                }
+
+                // construimos el payload de productos 
+                const productosPayload = itemsSnapshot.map((p: any) => {
+                    const idProd = Number(
+                        p?.id_producto ?? p?.id ?? p?.producto_id ?? p?.idProd
+                    );
+                    return { id_producto: idProd, cant_prod: 1, _debug: p };
+                });
+
+                // una simple validacion de los ids de productos
+                const validos = productosPayload.filter(x => Number.isInteger(x.id_producto) && x.id_producto > 0);
+                if (validos.length !== productosPayload.length) {
+                    console.error('Productos con id inválido. Snapshot:', productosPayload);
+                    alert('No se pudo registrar el pedido: hay productos sin id válido.');
+                    return;
+                }
+
+                // construir el payload final
+                const payload = {
+                    fk_user,
+                    productos: validos.map(({ id_producto, cant_prod }) => ({ id_producto, cant_prod }))
+                };
+
+                // guardar en la base de datos, si todo sale bien, tambien genera el XMl y vacia el carrito.
+                this.pedidoService.crearPedidoConItems(payload).subscribe({
+                    next: (resp) => {
+                        if (resp?.ok) {
+                            this.generarReciboXML();
+                            this.vaciar();
+                        } else {
+                            console.error('Backend no confirmó ok:', resp);
+                            alert('No se pudo registrar el pedido en la base de datos.');
+                        }
+                    },
+                    error: (err) => {
+                        console.error('Error al registrar pedido:', err);
+                        alert('Ocurrió un error al guardar el pedido. Intenta nuevamente.');
+                    }
+                });
             },
             onCancel: (data, actions) => {
                 console.log('OnCancel', data, actions);
