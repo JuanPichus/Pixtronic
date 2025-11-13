@@ -1,12 +1,25 @@
-<nav class="navbar">
-    <div class="nav-container">
-        <a routerLink="/catalogo" class="nav-brand">Pixtronic</a>
-        <div class="nav-links">
-            <a routerLink="/catalogo" routerLinkActive="active" class="nav-link">Catalogo</a>
-            <a routerLink="/carrito" routerLinkActive="active" class="nav-link">Carrito</a>
-        </div>
+<nav *ngIf="mostrarNavbar">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <h1>{{ title }}</h1>
     </div>
+    
+    <div class="nav-links">
+      <a routerLink="/catalogo" routerLinkActive="active">Catálogo</a>
+      <a routerLink="/carrito" routerLinkActive="active">Carrito</a>
+    </div>
+
+    <div class="nav-user" *ngIf="usuario$ | async as usuario">
+      <span class="user-info">
+        Cuenta: {{ usuario.admin ? 'Administrador' : 'Usuario' }}
+        <br>
+        <small>{{ usuario.username }}</small>
+      </span>
+      <button (click)="cerrarSesion()" class="btn-logout">Cerrar Sesión</button>
+    </div>
+  </div>
 </nav>
-<main class="main-content">
-    <router-outlet></router-outlet>
+
+<main [class.no-navbar]="!mostrarNavbar">
+  <router-outlet></router-outlet>
 </main>

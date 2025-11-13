@@ -34,9 +34,25 @@ body {
     font-weight: bold;
     transition: opacity 0.3s;
 }
+.nav-brand h1 {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+}
 .nav-links {
     display: flex;
     gap: 20px;
+}
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+.nav-links a:hover,
+.nav-links a.active {
+    background: rgba(255, 255, 255, 0.2);
 }
 .nav-link {
     color: #e6ffe6;
@@ -50,8 +66,46 @@ body {
     background: #233c2b;
     color: #4be36a;
 }
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.user-info {
+    color: white;
+    text-align: right;
+    font-size: 14px;
+}
+.user-info small {
+    font-size: 12px;
+    opacity: 0.9;
+}
+.btn-logout {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn-logout:hover {
+    background: white;
+    color: #667eea;
+}
+nav {
+    background: linear-gradient(135deg, #3c803c 0%, #0f440d 100%);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
 .main-content {
     min-height: calc(100vh - 60px);
     padding: 0;
     background: none;
+}
+main {
+    padding-top: 20px;
+}
+main.no-navbar {
+    padding-top: 0;
 }

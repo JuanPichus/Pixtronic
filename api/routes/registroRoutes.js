@@ -1,9 +1,10 @@
 import express from 'express';
-import { registrarUsuario, loginUsuario } from '../controllers/registroController.js';
+import * as registroController from '../controllers/registroController.js';
 
 const router = express.Router();
 
-router.post('/register', registrarUsuario);
-router.post('/login', loginUsuario);
+router.post('/registro', registroController.registrarUsuario);
+router.post('/login', registroController.loginUsuario);
+router.post('/recuperar-password', registroController.recuperarPassword);
 
 export default router;

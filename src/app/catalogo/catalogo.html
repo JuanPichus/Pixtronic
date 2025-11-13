@@ -1,20 +1,88 @@
-<h1 class="titulo-principal">Pixtronic</h1>
-<div class="productos-grid">
+<h1 class="titulo-principal"></h1>
+<div class="catalogo-container">
+  <div class="catalogo-header">
+    <h1>Pixtronic</h1>
+    <p class="subtitle">Catálogo de Productos</p>
+  </div>
+
+  <!-- Mensaje de producto agregado -->
+  <div *ngIf="mensajeAgregado" class="mensaje-agregado">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+    </svg>
+    {{ mensajeAgregado }}
+  </div>
+  
+  <div class="productos-grid" *ngIf="productos && productos.length > 0">
     <div *ngFor="let producto of productos; trackBy: trackById" class="producto-card">
-        <div class="producto-header">
-            <h3 class="producto-titulo">{{ producto.nombre }}</h3>
-            <span class="producto-id">ID: {{ producto.id }}</span>
+      
+      <!-- <div class="producto-imagen">
+        <div class="imagen-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+            <line x1="7" y1="2" x2="7" y2="22"></line>
+            <line x1="17" y1="2" x2="17" y2="22"></line>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <line x1="2" y1="7" x2="7" y2="7"></line>
+            <line x1="2" y1="17" x2="7" y2="17"></line>
+            <line x1="17" y1="17" x2="22" y2="17"></line>
+            <line x1="17" y1="7" x2="22" y2="7"></line>
+          </svg>
         </div>
-        <div class="producto-body">
-            <div *ngIf="producto.marca" class="producto-descripcion">
-                {{ producto.marca }}
-            </div>
-            <div class="producto-precio">
-                ${{ producto.precio}}
-            </div>
+        
+        <span class="stock-badge" [class.low-stock]="producto.cantidad < 5">
+          {{ producto.cantidad }} en stock
+        </span>
+      </div> -->
+      
+      <div class="producto-info">     
+        <span class="stock-badge" [class.low-stock]="producto.cantidad < 5">
+          {{ producto.cantidad }} en stock
+        </span> 
+        <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+        
+        <div class="producto-detalles">
+          <span class="marca">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+              <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            {{ producto.marca }}
+          </span>
+          <span class="tipo">{{ producto.tipo }}</span>
         </div>
-        <div class="producto-actions">
-            <button class="btn-agregar" (click)="agregar(producto)" title="Agregar al carrito">Agregar al Carrito</button>
+        
+        <div class="producto-footer">
+          
+          <div class="precio-container">
+            <span class="precio">${{ producto.precio }}</span>
+            <span class="precio-label">MXN</span>
+          </div>
+          
+          <button 
+            class="btn-agregar" 
+            (click)="agregarAlCarrito(producto)"
+            [disabled]="producto.cantidad === 0"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            {{ producto.cantidad > 0 ? 'Agregar' : 'Agotado' }}
+          </button>
         </div>
+      </div>
     </div>
+  </div>
+
+  <div *ngIf="!productos || productos.length === 0" class="no-productos">
+    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <p>No hay productos disponibles en este momento</p>
+  </div>
 </div>

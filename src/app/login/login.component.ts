@@ -1,49 +1,36 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../servicios/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  credentials = {
-    id_user: '',
-    email: '',
-    password: ''
-  };
+  email: string = '';
+  password: string = '';
+  errorMessage: string = '';
 
-  isLoading = false;
-  errorMessage = '';
+  constructor(private authService: AuthService, private router: Router) {}
 
-  private authService = inject(AuthService);
-  private router = inject(Router);
-
-  onSubmit() {
-    this.isLoading = true;
+  login() {
     this.errorMessage = '';
-
-    // Usar el servicio de autenticación
-    this.authService.loginUsuario(this.credentials).subscribe({
-      next: (data) => {
-        this.isLoading = false;
-        console.log('Login exitoso:', data);
-        
-        // Guardar usuario en localStorage o servicio de autenticación
-        localStorage.setItem('currentUser', JSON.stringify(data.user)); //AQUI SE GUARDA EL USUARIO LOGUEADO
-        
-        // Navegar al catálogo
-        this.router.navigate(['/catalogo']);
+    
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.router.navigate(['/catalogo']);
+        } else {
+          this.errorMessage = response.message;
+        }
       },
       error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.error || 'Error en el login';
-        console.error('Error en login:', error);
+        this.errorMessage = error.error.message || 'Error al iniciar sesión';
       }
     });
   }

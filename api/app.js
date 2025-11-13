@@ -1,20 +1,22 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import registroRoutes from './routes/registroRoutes.js';
 import catalogoRoutes from './routes/catalogoRoutes.js';
-import authRoutes from './routes/registroRoutes.js';
 import pedidoRoutes from './routes/pedidoRoutes.js';
 
 dotenv.config();
+
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-//Rutas
-app.use('/api/catalogo', catalogoRoutes);
-app.use('/api/registro', authRoutes);
-app.use('/api/pedidos', pedidoRoutes);
+app.use('/api', registroRoutes);
+app.use('/api', catalogoRoutes);
+app.use('/api', pedidoRoutes);
 
-//Puerto
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});

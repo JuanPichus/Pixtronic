@@ -1,11 +1,33 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './servicios/auth.service';
+import { filter } from 'rxjs/operators';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  standalone: true,
+  imports: [RouterOutlet, CommonModule, RouterModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
-export class App {
-  protected readonly title = signal('Pixtronic');
+export class AppComponent {
+  title = 'Pixtronic';
+  mostrarNavbar = true;
+  usuario$;
+
+  constructor(public authService: AuthService, private router: Router) {
+    this.usuario$ = this.authService.currentUser;
+    this.router.events.pipe(filter(e => e instanceof NavigationEnd))
+      .subscribe((e: any) => {
+        const u = e.urlAfterRedirects || e.url;
+        const sinNavbar = ['/login', '/registro', '/recuperar-password'];
+        this.mostrarNavbar = !sinNavbar.some(p => u.startsWith(p));
+      });
+  }
+
+  cerrarSesion() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
 }

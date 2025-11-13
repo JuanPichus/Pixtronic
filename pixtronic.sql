@@ -88,14 +88,35 @@ CREATE TABLE `producto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `producto`
+-- Volcado de datos para la tabla `producto`
 --
 
 INSERT INTO `producto` (`id_producto`, `nombre`, `marca`, `tipo`, `precio`, `vigente`, `cantidad`) VALUES
-(1, 'Prueba', 'Prueba', 'Prueba', 3000, 1, 127),
-(2, 'Prueba2', 'Prueba2', 'Prueba2', 2000, 1, 127),
-(3, 'Prueba3', 'Prueba', 'Prueba3', 4000, 1, 127),
-(4, 'Prueba4', 'Prueba', 'Prueba4', 4000, 1, 127);
+(5, 'Core i5-13600K', 'Intel', 'CPU', 32000, 1, 15),
+(6, 'Core i7-13700K', 'Intel', 'CPU', 45000, 1, 8),
+(7, 'Core i9-13900K', 'Intel', 'CPU', 68000, 1, 5),
+(8, 'Ryzen 5 7600X', 'AMD', 'CPU', 28000, 1, 12),
+(9, 'Ryzen 7 7700X', 'AMD', 'CPU', 38000, 1, 10),
+(10, 'Ryzen 9 7900X', 'AMD', 'CPU', 52000, 1, 6),
+(11, 'Core i3-12100F', 'Intel', 'CPU', 15000, 1, 20),
+(12, 'Ryzen 5 5600X', 'AMD', 'CPU', 22000, 1, 18),
+(13, 'RTX 4060 Ti 8GB', 'NVIDIA', 'GPU', 52000, 1, 7),
+(14, 'RTX 4070 12GB', 'NVIDIA', 'GPU', 75000, 1, 5),
+(15, 'RTX 4080 16GB', 'NVIDIA', 'GPU', 125000, 1, 3),
+(16, 'RTX 4090 24GB', 'NVIDIA', 'GPU', 185000, 1, 2),
+(17, 'RX 7600 8GB', 'AMD', 'GPU', 38000, 1, 8),
+(18, 'RX 7700 XT 12GB', 'AMD', 'GPU', 58000, 1, 6),
+(19, 'RX 7800 XT 16GB', 'AMD', 'GPU', 82000, 1, 4),
+(20, 'RX 7900 XTX 24GB', 'AMD', 'GPU', 135000, 1, 3),
+(21, 'Arc A750 8GB', 'Intel', 'GPU', 29000, 1, 10),
+(22, 'Vengeance LPX 16GB DDR4 3200MHz', 'Corsair', 'RAM', 12000, 1, 25),
+(23, 'Vengeance RGB 32GB DDR4 3600MHz', 'Corsair', 'RAM', 18000, 1, 18),
+(24, 'Dominator Platinum 64GB DDR5 5600MHz', 'Corsair', 'RAM', 45000, 1, 8),
+(25, 'Trident Z5 32GB DDR5 6000MHz', 'G.Skill', 'RAM', 22000, 1, 15),
+(26, 'Ripjaws V 16GB DDR4 3200MHz', 'G.Skill', 'RAM', 11000, 1, 22),
+(27, 'Ballistix 16GB DDR4 3200MHz', 'Crucial', 'RAM', 10000, 1, 30),
+(28, 'HyperX Fury 32GB DDR4 3200MHz', 'Kingston', 'RAM', 15000, 1, 20);
+
 
 -- --------------------------------------------------------
 
@@ -122,8 +143,11 @@ CREATE TABLE `usuario` (
   `lastname` tinytext DEFAULT NULL,
   `password` tinytext DEFAULT NULL,
   `email` tinytext DEFAULT NULL,
-  `birth_date` date DEFAULT NULL
+  `birth_date` date DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT 0,
+  `local_direction` tinytext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Indexes for dumped tables

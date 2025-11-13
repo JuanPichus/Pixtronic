@@ -1,61 +1,83 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../servicios/auth.service';
+import { Router, RouterModule } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registro',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  styleUrls: ['./registro.component.css']
 })
 export class RegistroComponent {
-  userData = {
-    username: '',
-    lastname: '',
-    email: '',
-    password: '',
-    birth_date: ''
-  };
+  // Datos de usuario
+  username: string = '';
+  lastname: string = '';
+  email: string = '';
+  password: string = '';
+  confirmPassword: string = '';
+  birth_date: string = '';
 
-  isLoading = false;
-  errorMessage = '';
-  successMessage = '';
+  // Dirección completa como texto
+  direccion: string = '';
 
-  private authService = inject(AuthService);
-  private router = inject(Router);
+  errorMessage: string = '';
+  successMessage: string = '';
 
-  onSubmit() {
-    this.isLoading = true;
+  constructor(private http: HttpClient, private router: Router) {}
+
+  validarEmail(): boolean {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(this.email);
+  }
+
+  registro() {
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Validar que todos los campos estén llenos
-    if (!this.userData.username || !this.userData.lastname || 
-        !this.userData.email || !this.userData.password || 
-        !this.userData.birth_date) {
-      this.errorMessage = 'Todos los campos son obligatorios';
-      this.isLoading = false;
+    // Validaciones
+    if (!this.validarEmail()) {
+      this.errorMessage = 'El formato del correo electrónico no es válido';
       return;
     }
 
-    // Usar el servicio de autenticación (igual que en productos)
-    this.authService.registrarUsuario(this.userData).subscribe({
-      next: (data) => {
-        this.isLoading = false;
-        this.successMessage = 'Registro exitoso! Redirigiendo al login...';
-        
-        // Redirigir al login después de 2 segundos
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Las contraseñas no coinciden';
+      return;
+    }
+
+    if (this.password.length < 6) {
+      this.errorMessage = 'La contraseña debe tener al menos 6 caracteres';
+      return;
+    }
+
+    if (!this.direccion.trim()) {
+      this.errorMessage = 'La dirección física es requerida';
+      return;
+    }
+
+    const datos = {
+      username: this.username,
+      lastname: this.lastname,
+      email: this.email,
+      password: this.password,
+      birth_date: this.birth_date,
+      direccion: this.direccion
+    };
+
+    this.http.post('http://localhost:3000/api/registro', datos).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          this.successMessage = 'Registro exitoso. Redirigiendo al login...';
+          setTimeout(() => {
+            this.router.navigate(['/login']);
+          }, 2000);
+        }
       },
       error: (error) => {
-        this.isLoading = false;
-        this.errorMessage = error.error?.error || error.error?.message || 'Error en el registro';
-        console.error('Error en registro:', error);
+        this.errorMessage = error.error.message || 'Error al registrar usuario';
       }
     });
   }

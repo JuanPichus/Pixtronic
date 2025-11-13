@@ -1,42 +1,47 @@
 //app/catalogo/catalogo.ts
-import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
-import { Producto } from '../modelos/producto';
-import { Productos } from '../servicios/productos';
-import { CarritoService } from '../servicios/carrito.service';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
+import { ProductosService } from '../servicios/productos';
+import { CarritoService } from '../servicios/carrito.service';
+import { Producto } from '../modelos/producto';
 
 @Component({
   selector: 'app-catalogo',
-  templateUrl: './catalogo.html',
-  styleUrls: ['./catalogo.css'],
   standalone: true,
   imports: [CommonModule],
+  templateUrl: './catalogo.html',
+  styleUrls: ['./catalogo.css']
 })
-export class Catalogo implements OnInit {
+export class CatalogoComponent implements OnInit {
   productos: Producto[] = [];
-  loading = true;
-  error: string | null = null;
   private carritoService = inject(CarritoService);
-  constructor(private productosService: Productos, private cdr: ChangeDetectorRef) {}
+  mensajeAgregado: string = '';
+
+  constructor(private productosService: ProductosService) {}
+
   ngOnInit(): void {
-    this.productosService.getProductos().subscribe({
-      next: (data) => {
-        this.productos = data;
-        this.loading = false;
-        this.cdr.detectChanges();
+    this.productosService.obtenerProductos().subscribe({
+      next: (response: any) => {
+        this.productos = Array.isArray(response.productos) ? response.productos : [];
+        console.log('Productos cargados:', this.productos);
       },
       error: (error) => {
-        this.error = 'Error al cargar los productos';
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
+        console.error('Error al cargar productos:', error);
+        this.productos = [];
+      }
     });
   }
-  agregar(producto: Producto) {
+
+  agregarAlCarrito(producto: Producto): void {
     this.carritoService.agregar(producto);
+    this.mensajeAgregado = `${producto.nombre} agregado al carrito`;
+    
+    setTimeout(() => {
+      this.mensajeAgregado = '';
+    }, 2000);
   }
 
+  // Método trackBy para optimizar el *ngFor
   trackById(index: number, producto: Producto): number {
     return producto.id;
   }
