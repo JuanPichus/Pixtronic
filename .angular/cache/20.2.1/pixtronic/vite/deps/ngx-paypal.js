@@ -1,6 +1,6 @@
 import {
   CommonModule
-} from "./chunk-B5BZ5SKG.js";
+} from "./chunk-GHFWPJAD.js";
 import "./chunk-EXH6ORNE.js";
 import {
   ChangeDetectionStrategy,
@@ -12,9 +12,7 @@ import {
   NgModule,
   NgZone,
   Output,
-  Subject,
   ViewChild,
-  __spreadValues,
   setClassMetadata,
   ɵɵNgOnChangesFeature,
   ɵɵdefineComponent,
@@ -28,7 +26,15 @@ import {
   ɵɵproperty,
   ɵɵqueryRefresh,
   ɵɵviewQuery
-} from "./chunk-SEULUZUU.js";
+} from "./chunk-UQA32AMX.js";
+import "./chunk-D5HPMNDN.js";
+import "./chunk-53B2AV33.js";
+import {
+  Subject
+} from "./chunk-W3LQWAEF.js";
+import {
+  __spreadValues
+} from "./chunk-GOMI4DH3.js";
 
 // node_modules/ngx-paypal/fesm2020/ngx-paypal.mjs
 var _c0 = ["payPalButtonContainer"];
