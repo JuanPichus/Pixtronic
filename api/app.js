@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import registroRoutes from './routes/registroRoutes.js';
 import catalogoRoutes from './routes/catalogoRoutes.js';
 import pedidoRoutes from './routes/pedidoRoutes.js';
+import inventarioRoutes from './routes/inventarioRoutes.js';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/api', registroRoutes);
 app.use('/api', catalogoRoutes);
 app.use('/api', pedidoRoutes);
+app.use('/api', inventarioRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

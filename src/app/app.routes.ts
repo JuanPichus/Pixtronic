@@ -27,6 +27,10 @@ export const routes: Routes = [
     path: 'carrito', 
     loadComponent: () => import('./carrito/carrito').then(m => m.CarritoComponent)
   },
+  {
+    path: 'inventario',
+    loadComponent: () => import('./inventario/inventario.component').then(m => m.InventarioComponent)
+  },
   { 
     path: '**', 
     redirectTo: 'login' 
