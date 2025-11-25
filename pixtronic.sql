@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2025 at 04:53 AM
+-- Generation Time: Nov 25, 2025 at 08:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,45 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `pixtronic`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `direccion`
---
-
-CREATE TABLE `direccion` (
-  `id_direccion` bigint(20) NOT NULL,
-  `codPostal` tinytext DEFAULT NULL,
-  `colonia` tinytext DEFAULT NULL,
-  `calle` tinytext DEFAULT NULL,
-  `num_ext` tinyint(3) UNSIGNED DEFAULT NULL,
-  `facturacion` tinyint(1) DEFAULT NULL,
-  `fk_municipio` smallint(6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `direccionusuario`
---
-
-CREATE TABLE `direccionusuario` (
-  `id_dir_usuario` bigint(20) NOT NULL,
-  `fk_user` int(11) DEFAULT NULL,
-  `fk_direccion` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `municipio`
---
-
-CREATE TABLE `municipio` (
-  `id_municipio` smallint(6) NOT NULL,
-  `nombre` tinytext NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -153,32 +114,11 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`id_user`, `username`, `lastname`, `password`, `password_plain`, `email`, `birth_date`, `admin`, `local_direction`) VALUES
-(2, 'Juan Pablo', 'Rivera Assad', '29bd54d8d1e9bec6aaaaf7f987478bf8ce693b2b', 'contra123', 'a22100178@ceti.mx', '2025-11-12', 0, '{\"direccion_completa\":\"Este es mi domicilio 123\",\"fecha_registro\":\"2025-11-13T02:04:04.450Z\"}');
+(2, 'Juan Pablo', 'Rivera Assad', '29bd54d8d1e9bec6aaaaf7f987478bf8ce693b2b', 'contra123', 'a22100178@ceti.mx', '2025-11-12', 1, '{\"direccion_completa\":\"Este es mi domicilio 123\",\"fecha_registro\":\"2025-11-13T02:04:04.450Z\"}');
 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `direccion`
---
-ALTER TABLE `direccion`
-  ADD PRIMARY KEY (`id_direccion`),
-  ADD KEY `fk_municipio` (`fk_municipio`);
-
---
--- Indexes for table `direccionusuario`
---
-ALTER TABLE `direccionusuario`
-  ADD PRIMARY KEY (`id_dir_usuario`),
-  ADD KEY `fk_user` (`fk_user`),
-  ADD KEY `fk_direccion` (`fk_direccion`);
-
---
--- Indexes for table `municipio`
---
-ALTER TABLE `municipio`
-  ADD PRIMARY KEY (`id_municipio`);
 
 --
 -- Indexes for table `pedido`
@@ -212,24 +152,6 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT for table `direccion`
---
-ALTER TABLE `direccion`
-  MODIFY `id_direccion` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `direccionusuario`
---
-ALTER TABLE `direccionusuario`
-  MODIFY `id_dir_usuario` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `municipio`
---
-ALTER TABLE `municipio`
-  MODIFY `id_municipio` smallint(6) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `pedido`
 --
 ALTER TABLE `pedido`
@@ -256,19 +178,6 @@ ALTER TABLE `usuario`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `direccion`
---
-ALTER TABLE `direccion`
-  ADD CONSTRAINT `direccion_ibfk_1` FOREIGN KEY (`fk_municipio`) REFERENCES `municipio` (`id_municipio`);
-
---
--- Constraints for table `direccionusuario`
---
-ALTER TABLE `direccionusuario`
-  ADD CONSTRAINT `direccionusuario_ibfk_1` FOREIGN KEY (`fk_user`) REFERENCES `usuario` (`id_user`),
-  ADD CONSTRAINT `direccionusuario_ibfk_2` FOREIGN KEY (`fk_direccion`) REFERENCES `direccion` (`id_direccion`);
 
 --
 -- Constraints for table `pedido`
