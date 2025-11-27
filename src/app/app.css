@@ -91,7 +91,7 @@ body {
 }
 .btn-logout:hover {
     background: white;
-    color: #66ea75;
+    color: #667eea;
 }
 nav {
     background: linear-gradient(135deg, #3c803c 0%, #0f440d 100%);
@@ -105,9 +105,7 @@ nav {
 }
 main {
     padding-top: 20px;
-    padding-bottom: 80px; /* Espacio para el footer */
 }
 main.no-navbar {
     padding-top: 0;
-    padding-bottom: 0;
 }
