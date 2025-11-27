@@ -24,3 +24,5 @@
 <main [class.no-navbar]="!mostrarNavbar">
   <router-outlet></router-outlet>
 </main>
+
+<app-footer *ngIf="mostrarNavbar"></app-footer>

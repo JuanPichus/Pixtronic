@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { Router, RouterOutlet, NavigationEnd, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './servicios/auth.service';
+import { FooterComponent } from './footer/footer.component';
 import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterModule],
+  imports: [RouterOutlet, CommonModule, RouterModule, FooterComponent],
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
