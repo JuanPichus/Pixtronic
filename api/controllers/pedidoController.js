@@ -12,17 +12,28 @@ export const crearPedido = async (req, res) => {
 
     const pedidoId = pedidoResult.insertId;
 
-    // Insertar productos del pedido
+    // Insertar productos del pedido y disminuir stock
     for (const producto of productos) {
+      // Acepta tanto 'cantidad' como 'cant_prod' del frontend
+      const cant_prod = producto.cantidad ?? producto.cant_prod ?? 1;
+      
       await db.query(
-        'INSERT INTO productopedido (fk_pedido, fk_producto, cantidad) VALUES (?, ?, ?)',
-        [pedidoId, producto.id_producto, producto.cantidad]
+        'INSERT INTO productopedido (fk_pedido, fk_producto, cant_prod) VALUES (?, ?, ?)',
+        [pedidoId, producto.id_producto, cant_prod]
+      );
+      
+      // Disminuir stock del producto (columna 'cantidad' en tabla producto)
+      await db.query(
+        'UPDATE producto SET cantidad = cantidad - ? WHERE id_producto = ?',
+        [cant_prod, producto.id_producto]
       );
     }
 
     res.status(201).json({ 
+      ok: true,
       success: true, 
       message: 'Pedido creado exitosamente',
+      id_pedido: pedidoId,
       pedidoId 
     });
   } catch (error) {
